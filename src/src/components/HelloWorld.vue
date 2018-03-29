@@ -90,7 +90,7 @@ int main()
     },
     mounted() {
       this.renderTerminal();
-      this.socket = io('http://localhost:8360');
+      this.socket = io('http://'+window.location.host);
     }
   }
 </script>
