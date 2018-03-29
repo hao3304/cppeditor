@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "think-websocket": "^1.0.6",
+    "think-websocket-socket.io": "^1.0.10"
+  }
+}
