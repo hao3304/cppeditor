@@ -3,7 +3,7 @@
     <Spin fix v-show="loading"></Spin>
     <codemirror  v-model="code" :options="cmOptions"></codemirror>
     <div class="content">
-      <Button class="btn-run" @click="onBuild" style="width: 100px" type="primary">编译</Button>
+      <Button v-show="!loading" class="btn-run" @click="onBuild" style="width: 100px" type="primary">编译</Button>
       <Tabs type="card">
         <TabPane label="执行">
           <div id="terminal"></div>
@@ -83,7 +83,6 @@ int main()
         })
         this.socket.on('close',data=>{
           socket.close();
-          debugger
           this.socketOpen = false;
         })
         this.socket.emit('build', file)
@@ -117,7 +116,7 @@ int main()
       position: absolute;
       right: 10px;
       top:5px;
-      z-index: 100;
+      z-index: 10;
     }
 
     .content {
