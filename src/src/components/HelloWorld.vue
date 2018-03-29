@@ -72,6 +72,9 @@ int main()
           axios.post('/compile',{code:this.code}).then(({data})=>{
             this.loading = false;
             this.onSocket(data.data);
+          }).catch(()=>{
+            this.loading = false;
+            this.$Message.error("编译错误！")
           })
         }
       },
