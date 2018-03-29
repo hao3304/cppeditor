@@ -43,7 +43,8 @@ int main()
           line: true,
         },
         loading:false,
-        socketOpen:false
+        socketOpen:false,
+        hasListen:false
       }
     },
     methods:{
@@ -75,17 +76,20 @@ int main()
         }
       },
       onSocket(file) {
-        this.socket.connect();
         this.socketOpen = true;
-        this.socket.on('data', data=>{
-          this.Terminal.echo(data);
-          this.Terminal.enable();
-        })
-        this.socket.on('close',data=>{
-          socket.close();
-          this.socketOpen = false;
-        })
-        this.socket.emit('build', file)
+        this.socket.connect();
+
+        this.socket.on('data', function(data){
+            this.Terminal.echo(data);
+            this.Terminal.enable();
+          }.bind(this))
+          this.socket.on('close',data=>{
+            this.socket.close();
+            this.socketOpen = false;
+            this.socket.removeAllListeners();
+          })
+          this.socket.emit('build', file)
+
       }
     },
     mounted() {
