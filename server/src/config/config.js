@@ -2,5 +2,5 @@
 module.exports = {
   workers: 1,
   stickyCluster: true,
-  port: 8003
+  port: 3001
 };
