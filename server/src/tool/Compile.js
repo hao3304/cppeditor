@@ -8,11 +8,12 @@ exports.compileCpp =async function (code) {
   var filename = cuid.slug();
   const rep = await writeFile(code, filename, _path)
 
-  let commmand = 'gcc ' + _path +'/'+ filename +'.cpp -o '+ _path +'/'+ filename +'.out -lstdc++' ;
+  // let commmand = 'gcc ' + _path +'/'+ filename +'.cpp -o '+ _path +'/'+ filename +'.out -lstdc++' ;
+  let commmand = 'docker exec -i cpp gcc '  +'/temp/'+ filename +'.cpp -o /temp/'+ filename +'.out -lstdc++' ;
   return new Promise((resolve, reject) => {
     exec(commmand, function ( error , stdout , stderr) {
       if(error) {
-        reject(reject)
+        reject(error)
       }else{
         resolve(filename)
       }

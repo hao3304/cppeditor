@@ -4,15 +4,21 @@ const Compile = require('../tool/Compile')
 module.exports = class extends Base {
   async indexAction() {
 
-      if(this.isPost) {
+    if(this.isPost) {
 
-        let {code} = this.post();
-        const rep = await Compile.compileCpp(code)
+      let {code} = this.post();
+      let rep = '';
+      try {
+        rep = await Compile.compileCpp(code)
+      }catch (e) {
+        this.fail(e);
+      }finally {
         this.success(rep);
-
-      }else{
-         this.body = '不支持该方法!'
       }
+
+    }else{
+      this.body = '不支持该方法!'
+    }
 
   }
 
