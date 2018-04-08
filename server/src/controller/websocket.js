@@ -13,7 +13,7 @@ module.exports = class extends Base {
     // console.log('判断当前请求是否是 WebSocket 请求', this.isWebsocket);
     // var ch = spawn(path.resolve(think.ROOT_PATH, `./temp/${this.wsData}.out`))
     // let commond = 'docker exec -i cpp ' + `/temp/${this.wsData}.out`;
-    let commond = 'docker run  -i -v ' + path.resolve(think.ROOT_PATH,'./temp') + ':/temp codenvy/cpp_gcc ' + `/temp/${this.wsData}.out`;
+    let commond = 'docker run  -i -v ' + path.resolve(think.ROOT_PATH,'./temp') + ':/tmp codenvy/cpp_gcc ' + `/tmp/${this.wsData}.out`;
     var ch = spawn(commond)
 
     ch.stdin.on("end", ()=> {
