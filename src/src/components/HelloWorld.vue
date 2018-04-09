@@ -69,6 +69,9 @@ int main()
       onBuild() {
         if(this.code) {
           this.loading = true;
+          if(this.socket) {
+            this.socket.close();
+          }
           axios.post('/compile',{code:this.code}).then(({data})=>{
             this.loading = false;
             this.onSocket(data.data);
