@@ -69,9 +69,7 @@ int main()
       onBuild() {
         if(this.code) {
           this.loading = true;
-          if(this.socket) {
-            this.socket.close();
-          }
+          this.socket.close();
           axios.post('/compile',{code:this.code}).then(({data})=>{
             this.loading = false;
             this.onSocket(data.data);
@@ -84,23 +82,29 @@ int main()
       onSocket(file) {
         this.socketOpen = true;
         this.socket.connect();
-
-        this.socket.on('data', function(data){
+        if(!this.isBind) {
+          this.socket.on('data', function(data){
             this.Terminal.echo(data);
             this.Terminal.enable();
           }.bind(this))
           this.socket.on('close',data=>{
             this.socket.close();
             this.socketOpen = false;
+            this.isBind = false;
             this.socket.removeAllListeners();
           })
-          this.socket.emit('build', file)
+        }
+
+        this.isBind = true;
+
+        this.socket.emit('build', file)
 
       }
     },
     mounted() {
       this.renderTerminal();
       this.socket = io('http://'+window.location.host);
+      this.socket.close();
     }
   }
 </script>
