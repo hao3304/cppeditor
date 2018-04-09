@@ -4,7 +4,7 @@ const fs =require('fs')
 const path = require('path')
 
 exports.compileCpp =async function (code) {
-  _path = '/tmp/chroot';
+  _path = '/tmp/chroot/tmp';
   // _path = path.resolve(think.ROOT_PATH,'./temp/');
   var filename = cuid.slug();
   const rep = await writeFile(code, filename, _path)
