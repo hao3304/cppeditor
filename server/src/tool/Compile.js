@@ -4,14 +4,12 @@ const fs =require('fs')
 const path = require('path')
 
 exports.compileCpp =async function (code) {
-  _path = '/tmp/chroot/tmp';
+  _path = '/tmp/xenial/tmp';
   // _path = path.resolve(think.ROOT_PATH,'./temp/');
   var filename = cuid.slug();
   const rep = await writeFile(code, filename, _path)
-
-  let commmand = 'fakechroot /usr/sbin/chroot /tmp/chroot/ gcc /tmp/'+ filename +'.cpp -o /tmp/'+ filename +'.out -lstdc++' ;
-  console.log(commmand);
-  // let commmand = 'docker exec -i cpp gcc '  +'/tmp/'+ filename +'.cpp -o /tmp/'+ filename +'.out -lstdc++' ;
+  let commmand = 'fakechroot /usr/sbin/chroot /tmp/xenial/ gcc /tmp/'+ filename +'.cpp -o /tmp/'+ filename +'.out -lstdc++' ;
+  // let commmand = 'gcc ' + _path +'/'+ filename +'.cpp -o '+ _path +'/'+ filename +'.out -lstdc++' ;
   return new Promise((resolve, reject) => {
     exec(commmand, function ( error , stdout , stderr) {
       if(error) {
