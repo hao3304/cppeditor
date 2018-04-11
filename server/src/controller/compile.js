@@ -9,7 +9,9 @@ module.exports = class extends Base {
       let {code} = this.post();
       let rep = '';
       try {
-        rep = await Compile.compileCpp(code)
+        rep = await Compile.compileCpp(code).catch(err=>{
+          this.fail(err);
+        })
       }catch (e) {
         this.fail(e);
       }finally {
