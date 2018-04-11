@@ -82,7 +82,7 @@ int main()
             this.echo('');
           }
         }, {
-          greetings: '欢迎使用c++在线编译器',
+          greetings: '欢迎使用在线C++编译器',
           name: 'js_demo',
           height: '200px',
           prompt: '> '
