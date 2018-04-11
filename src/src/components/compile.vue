@@ -1,15 +1,35 @@
 <template>
   <div class="app">
-    <Spin fix v-show="loading"></Spin>
-    <codemirror  v-model="code" :options="cmOptions"></codemirror>
-    <div class="content">
-      <Button v-show="!loading" class="btn-run" @click="onBuild" style="width: 100px" type="primary">编译</Button>
-      <Tabs type="card">
-        <TabPane label="执行">
-          <div id="terminal"></div>
-        </TabPane>
-      </Tabs>
-    </div>
+    <h5 class="title">在线C++编译器</h5>
+    <Row :getter="20">
+      <Col :span="16">
+     <div style="position: relative">
+       <Spin fix v-show="loading"></Spin>
+       <codemirror  v-model="code" :options="cmOptions"></codemirror>
+     </div>
+
+      <div class="stdout" v-if="stdout">
+        <Tabs>
+          <TabPane label="输出">
+            <Alert :type="type == 0?'success':'error'" show-icon>{{stdout}}</Alert>
+          </TabPane>
+        </Tabs>
+      </div>
+
+      <div class="stdin">
+        <Button :disabled="loading" class="btn-run" icon="play" @click="onBuild" style="width: 100px" type="success">编译</Button>
+        <Tabs type="card">
+          <TabPane label="输入">
+            <div id="terminal"></div>
+          </TabPane>
+        </Tabs>
+      </div>
+      </Col>
+      <Col :span="8">
+      </Col>
+    </Row>
+
+
   </div>
 </template>
 <script>
@@ -21,7 +41,7 @@
   import axios from 'axios'
 
   export default {
-    name: 'HelloWorld',
+    name: 'compile',
     data () {
       return {
         code: `#include <iostream>
@@ -41,10 +61,13 @@ int main()
           lineNumbers: true,
           matchBrackets: true,
           line: true,
+          height: 400
         },
         loading:false,
         socketOpen:false,
-        hasListen:false
+        hasListen:false,
+        stdout: '',
+        type: 0 // 0 正常 1出错
       }
     },
     methods:{
@@ -52,7 +75,6 @@ int main()
         let self = this;
         this.Terminal = $('#terminal').terminal(function(command) {
           if (command !== '') {
-            // this.echo(new String(command));
             if(self.socketOpen) {
               self.socket.emit('send', command)
             }
@@ -62,7 +84,7 @@ int main()
         }, {
           greetings: '欢迎使用c++在线编译器',
           name: 'js_demo',
-          height: '258px',
+          height: '200px',
           prompt: '> '
         });
       },
@@ -72,7 +94,12 @@ int main()
           this.socket.close();
           axios.post('/compile',{code:this.code}).then(({data})=>{
             this.loading = false;
-            this.onSocket(data.data);
+            if(data.errno == 0) {
+              this.onSocket(data.data);
+            }else{
+              this.stdout = data.errmsg;
+              this.type = 1;
+            }
           }).catch(()=>{
             this.loading = false;
             this.$Message.error("编译错误！")
@@ -84,8 +111,10 @@ int main()
         this.socket.connect();
         if(!this.isBind) {
           this.socket.on('data', function(data){
-            this.Terminal.echo(data);
-            this.Terminal.enable();
+//            this.Terminal.echo(data);
+//            this.Terminal.enable();
+            this.stdout = data;
+            this.type = 0;
           }.bind(this))
           this.socket.on('close',data=>{
             this.socket.close();
@@ -110,31 +139,48 @@ int main()
 </script>
 <style  lang="less">
   .app{
-    display: flex;
     overflow: hidden;
     flex-direction: column;
     position: absolute;
+    padding: 0 20px;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
+    .title {
+      font-size: 22px;
+      margin: 10px 0;
+      color: green;
+    }
     .vue-codemirror{
-      flex: 1;
+      height: 250px;
       .CodeMirror{
         height: 100%;
-        font-size: 14px;
+        font-size: 12px;
+      }
+    }
+
+    .stdout {
+      margin-top: 10px;
+      .contents{
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 5px;
+        li {
+          padding: 5px;
+          font-size: 14px;
+        }
       }
     }
 
     .btn-run{
       position: absolute;
-      right: 10px;
-      top:5px;
+      right: 5px;
+      top:6px;
       z-index: 10;
     }
 
-    .content {
-      height: 300px;
+    .stdin {
       position: relative;
       padding-top: 10px;
 
