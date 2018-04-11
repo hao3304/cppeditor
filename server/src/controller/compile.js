@@ -5,17 +5,15 @@ module.exports = class extends Base {
   async indexAction() {
 
     if(this.isPost) {
-
       let {code} = this.post();
-      let rep = '';
-      try {
-        rep = await Compile.compileCpp(code).catch(err=>{
-          console.log('err:',err)
-        })
-      }catch (e) {
-        this.fail(e);
-      }finally {
+      let err_message = '';
+      let rep = await Compile.compileCpp(code).catch(err=>{
+        err_message = err;
+      })
+      if(rep) {
         this.success(rep);
+      }else{
+       return this.fail(500, err_message);
       }
 
     }else{
