@@ -13,6 +13,7 @@ exports.compileCpp =async function (code) {
   return new Promise((resolve, reject) => {
     exec(commmand, function ( error , stdout , stderr) {
       if(error) {
+        console.log(error, stderr)
         reject(error)
       }else{
         resolve(filename)
