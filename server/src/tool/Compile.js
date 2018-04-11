@@ -13,6 +13,11 @@ exports.compileCpp =async function (code) {
   return new Promise((resolve, reject) => {
     exec(commmand, function ( error , stdout , stderr) {
       if(error) {
+
+        if(typeof stderr == 'string' && stderr.length > 500) {
+          stderr = 'error messages exceed limit'
+        }
+
         reject(stderr)
       }else{
         resolve(filename)
