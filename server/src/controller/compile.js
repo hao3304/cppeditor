@@ -10,7 +10,7 @@ module.exports = class extends Base {
       let rep = '';
       try {
         rep = await Compile.compileCpp(code).catch(err=>{
-          this.fail(err);
+          console.log('err:',err)
         })
       }catch (e) {
         this.fail(e);
