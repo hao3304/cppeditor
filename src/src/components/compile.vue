@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <h5 class="title">在线C++编译器</h5>
+    <h5 class="title">在线C/C++编译器</h5>
     <Row :getter="20">
       <Col :span="16">
      <div style="position: relative">
@@ -79,7 +79,7 @@ int main()
             this.echo('');
           }
         }, {
-          greetings: '欢迎使用在线C++编译器',
+          greetings: '欢迎使用在线C/C++编译器',
           name: 'js_demo',
           height: '200px',
           prompt: '> '
