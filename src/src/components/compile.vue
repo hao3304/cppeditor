@@ -129,7 +129,7 @@ int main()
     },
     mounted() {
       this.renderTerminal();
-      this.socket = io('http://'+window.location.host);
+      this.socket = io('//'+window.location.host);
       this.socket.close();
     }
   }
