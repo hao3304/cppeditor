@@ -44,14 +44,11 @@
     name: 'compile',
     data () {
       return {
-        code: `#include <iostream>
-#include <string>
+        code: `#include<stdio.h>
 int main()
 {
-  std::string name;
-  std::cout << "What is your name? ";
-  getline (std::cin, name);
-  std::cout << "Hello, " << name << "!\\n";
+	printf("hello world!\\n");
+  	return 0;
 }
 `,
         cmOptions: {
