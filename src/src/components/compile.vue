@@ -11,7 +11,7 @@
       <div class="stdout" v-if="stdout">
         <Tabs>
           <TabPane label="输出">
-            <Alert :type="type == 0?'success':'error'" show-icon>{{stdout}}</Alert>
+            <Alert :type="type == 0?'success':'error'" show-icon v-html="stdout"></Alert>
           </TabPane>
         </Tabs>
       </div>
@@ -110,7 +110,7 @@ int main()
           this.socket.on('data', function(data){
 //            this.Terminal.echo(data);
 //            this.Terminal.enable();
-            this.stdout = data;
+            this.stdout = data.replace(/\n/g, "<br/>");
             this.type = 0;
           }.bind(this))
           this.socket.on('close',data=>{
