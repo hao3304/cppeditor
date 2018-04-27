@@ -8,7 +8,7 @@
 export default {
   name: 'App',
   mounted() {
-    document.getElementById("progressbar").remove();
+    $("#progressbar").remove();
   }
 }
 </script>
