@@ -1,1 +1,40 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>src</title><link href=/static/css/app.cca059254702f9ed953b7df749673cf4.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.7fed9fa7b7ba482410b7.js></script><script type=text/javascript src=/static/js/app.f16ac5c624284d30f5af.js></script></body></html>
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>在线C/C++编译</title><script src=//lib.baomitu.com/socket.io/2.0.1/socket.io.js></script><style>body {
+        color: #333;
+      }
+      #progressbar{
+        height: 26px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 200px;
+        background: rgba(159, 159, 159, 0.5);
+        border-radius: 10px;
+        margin: -20px 0 0 -100px;
+        padding: 2px;
+      }
+      #loading{
+        transition: all 500ms ease;
+        height: 20px;
+        width: calc(100% - 10px);
+        border-radius: 8px;
+        background: #474747;
+        position: absolute;
+        margin: 3px;
+        display: inline-block;
+        animation: load 15s ease infinite;
+      }
+      #load{
+        font-family: Arial;
+        font-weight: bold;
+        text-align: center;
+        margin-top: -30px;
+      }
+
+      @keyframes load{
+        0%{
+          width: 2%;
+        }
+        10%{
+          width: 10%;
+        }
+      }</style><link href=/static/css/app.ad15ab4e90a6b871553fc07b343ad96a.css rel=stylesheet></head><body><div id=progressbar><span id=loading></span><div id=load>loading</div></div><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.114dc9afdcaf53a0cd2b.js></script><script type=text/javascript src=/static/js/app.538fdbc743c004095f8e.js></script></body></html>
