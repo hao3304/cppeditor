@@ -5,9 +5,9 @@ import App from './App'
 import router from './router'
 import VueCodemirror from 'vue-codemirror'
 import iView from 'iview'
-
 import 'iview/dist/styles/iview.css'
 import 'codemirror/lib/codemirror.css'
+import '../static/css/main.css'
 Vue.config.productionTip = false
 Vue.use(VueCodemirror, /* {
   options: { theme: 'base16-dark', ... },
@@ -15,6 +15,7 @@ Vue.use(VueCodemirror, /* {
 } */)
 
 Vue.use(iView);
+
 
 /* eslint-disable no-new */
 new Vue({
