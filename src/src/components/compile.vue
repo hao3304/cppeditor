@@ -138,9 +138,7 @@
         this.socket.connect();
         if(!this.isBind) {
           this.socket.on('data', function(data){
-//            this.Terminal.echo(data);
-//            this.Terminal.enable();
-              this.stdout.push(data)
+              this.stdout.push(data.replace(/\n/g, '<br\>'))
             this.type = 0;
           }.bind(this))
           this.socket.on('close',data=>{
