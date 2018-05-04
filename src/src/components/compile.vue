@@ -21,7 +21,7 @@
             <Col :span="12" style="padding: 0 10px;">
             <div id="markdown"  class="markdown-body"></div>
             </Col>
-            <Col :span="12" class="terminal-block" >
+            <Col :span="12" id="terminal-block" >
                 <div style="position: relative" >
                   <Spin fix v-show="loading"></Spin>
                   <codemirror  v-model="code" :options="cmOptions"></codemirror>
@@ -234,7 +234,7 @@
   }
 
 
-  .terminal-block{
+  #terminal-block{
     position: fixed;
     right: 30px;
     width: 600px;
@@ -242,7 +242,7 @@
   }
 
   @media screen and (max-width: 1400px) {
-    .terminal-block{
+    #terminal-block{
       width: 500px;
     }
   }
