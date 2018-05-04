@@ -193,12 +193,6 @@
       }
     }
 
-    .terminal-block{
-      position: fixed;
-      right: 30px;
-      width: 600px;
-      top: 100px;
-    }
 
     .stdout {
       margin-top: 10px;
@@ -237,5 +231,19 @@
       height: 100%;
     }
 
+  }
+
+
+  .terminal-block{
+    position: fixed;
+    right: 30px;
+    width: 600px;
+    top: 100px;
+  }
+
+  @media screen and (max-width: 1400px) {
+    .terminal-block{
+      width: 500px;
+    }
   }
 </style>
