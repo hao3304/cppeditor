@@ -14,7 +14,7 @@
       </Sider>
       <Layout>
         <Header style="background-color: #fff;">
-          <h5 class="title">在线C/C++编译器</h5>
+          <h5 class="title">C/C++基础课程</h5>
         </Header>
         <Content style="padding: 0 10px;background-color: #fff">
           <Row :getter="20">
@@ -67,7 +67,7 @@
     name: 'compile',
     data () {
       return {
-        code: lessons[0].demo.replace(/(^\s*)|(\s*$)/g, ""),
+        code: "",
         lessons:lessons,
         active: 0,
         cmOptions: {
@@ -229,6 +229,7 @@
 
     #markdown{
       height: 100%;
+      padding-bottom: 60px;
     }
 
   }

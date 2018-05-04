@@ -1,7 +1,7 @@
 export default [
 
   {
-    name: '课程一',
+    name: 'Hello World!',
     demo: `
 #include<stdio.h>
 int main()
@@ -70,7 +70,7 @@ char c = 'Z';
     `
   },
   {
-    name: '课程二',
+    name: 'C程序基本结构',
     demo:`
     #include <stdio.h>  
 int main() {  
