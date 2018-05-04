@@ -26,10 +26,10 @@
                   <Spin fix v-show="loading"></Spin>
                   <codemirror  v-model="code" :options="cmOptions"></codemirror>
                 </div>
-                <div class="stdout" v-if="stdout">
+                <div class="stdout" v-if="stdout.length > 0">
                   <Tabs>
                     <TabPane label="输出">
-                      <Alert :type="type == 0?'success':'error'" show-icon v-html="stdout"></Alert>
+                      <Alert :type="type == 0?'success':'error'" show-icon v-html="getStdout"></Alert>
                     </TabPane>
                   </Tabs>
                 </div>
@@ -82,8 +82,13 @@
         loading:false,
         socketOpen:false,
         hasListen:false,
-        stdout: '',
+        stdout: [],
         type: 0 // 0 正常 1出错
+      }
+    },
+    computed:{
+      getStdout() {
+        return this.stdout.join(`</br>`);
       }
     },
     methods:{
@@ -113,12 +118,13 @@
         if(this.code) {
           this.loading = true;
           this.socket.close();
+          this.stdout = [];
           axios.post('/compile',{code:this.code}).then(({data})=>{
             this.loading = false;
             if(data.errno == 0) {
               this.onSocket(data.data);
             }else{
-              this.stdout = data.errmsg;
+              this.stdout = [data.errmsg];
               this.type = 1;
             }
           }).catch(()=>{
@@ -134,7 +140,7 @@
           this.socket.on('data', function(data){
 //            this.Terminal.echo(data);
 //            this.Terminal.enable();
-            this.stdout = data.replace(/\n/g, "<br/>");
+              this.stdout.push(data)
             this.type = 0;
           }.bind(this))
           this.socket.on('close',data=>{
@@ -152,7 +158,7 @@
       },
       renderLesson() {
         this.code = this.lessons[this.active].demo.replace(/(^\s*)|(\s*$)/g, "");
-        this.stdout = '';
+        this.stdout = [];
         $("#markdown").html(
           marked(this.lessons[this.active].content)
         )
