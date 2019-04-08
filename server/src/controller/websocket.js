@@ -12,7 +12,7 @@ module.exports = class extends Base {
     // console.log('获取当前 WebSocket 对象', this.websocket);
     // console.log('判断当前请求是否是 WebSocket 请求', this.isWebsocket);
     const _path = think.config('gccPath');
-    let ch = spawn(`stdbuf -i0 -o0 -e0 nsjail -q  --rlimit_as 104857600 --time_limit 300 --chroot  ${_path}/${this.wsData}.out`)
+    let ch = spawn(`stdbuf -i0 -o0 -e0 nsjail -q  --rlimit_as 104857600 --time_limit 300 --chroot  ${_path}/tmp/${this.wsData}.out`)
     // var ch = spawn(path.resolve(think.ROOT_PATH, `./temp/${this.wsData}.out`))
 
     ch.stdin.on("end", ()=> {

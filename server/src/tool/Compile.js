@@ -8,7 +8,7 @@ exports.compileCpp =async function (code) {
   var filename = cuid.slug();
   const rep = await writeFile(code, filename, _path)
   // let commmand = '/usr/sbin/chroot /tmp/xenial/ gcc /tmp/'+ filename +'.cpp -o /tmp/'+ filename +'.out -lstdc++' ;
-  let commmand = `/usr/sbin/chroot ${_path} gcc ${filename}.cpp -o ${filename}.out -lstdc++`;
+  let commmand = `fakechroot /usr/sbin/chroot ${_path} gcc /tmp/${filename}.cpp -o /tmp/${filename}.out -lstdc++`;
   // let commmand = 'gcc ' + _path +'/'+ filename +'.cpp -o '+ _path +'/'+ filename +'.out -lstdc++' ;
   return new Promise((resolve, reject) => {
     exec(commmand, function ( error , stdout , stderr) {
